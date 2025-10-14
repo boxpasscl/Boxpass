@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Dashboard Admin - BoxPass</title>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    /* Logo */
+    .logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0 30px;
+    }
+
+    .logo {
+      max-width: 280px;
+      height: auto;
+      cursor: pointer;
+    }
+
+    h1 {
+      margin: 10px 0 30px;
+      font-size: 26px;
+      color: red;
+    }
+
+    nav {
+      margin-top: 30px;
+    }
+    nav a {
+      display: block;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 20px;
+      margin: 14px 0;
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      transition: background 0.3s, color 0.3s;
+    }
+    nav a:hover {
+      background: rgba(230,0,0,0.15);
+      color: red;
+    }
+
+    /* Botón cerrar sesión */
+    .logout-link {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      color: #fff;
+      background: transparent;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.2s, color 0.2s;
+    }
+    .logout-link:hover {
+      background: rgba(230,0,0,0.08);
+      border-color: rgba(230,0,0,0.6);
+      color: red;
+    }
+
+    @media (max-width:480px) {
+      .logo { max-width: 140px; }
+      nav a { font-size: 18px; }
+      .logout-link {
+        right: 10px;
+        bottom: 10px;
+        font-size: 12px;
+        padding: 6px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Logo -->
+  <div class="logo-wrap">
+    <a href="dashboardadmin.html">
+      <img src="imagenes/logo.svg" alt="Logo BoxPass" class="logo">
+    </a>
+  </div>
+
+  <h1>Panel de Administración</h1>
+
+  <!-- Menú administración -->
+  <nav>
+    <a href="adminalumnos.html">Alumnos</a>
+    <a href="adminempresas.html">Empresas</a>
+    <a href="admineventos.html">Eventos</a>
+  </nav>
+
+  <!-- Cerrar sesión -->
+  <a href="ingresoadmin.html" class="logout-link" aria-label="Cerrar sesión">Cerrar Sesión</a>
+</body>
+</html>

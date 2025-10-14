@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cambiar Contraseña - BoxPass</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    /* Logo centrado */
+    .logo-container {
+      margin-top: 20px;
+    }
+
+    .logo-container img {
+      width: 250px; /* Ajusta el tamaño según prefieras */
+      cursor: pointer; /* Hace que se note que es clickeable */
+    }
+
+    h2 {
+      margin-top: 20px;
+    }
+
+    form {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input {
+      width: 80%;
+      max-width: 400px;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: red;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Logo que redirige a la página principal -->
+  <div class="logo-container">
+    <a href="index.html">
+      <img src="imagenes/logo.svg" alt="BoxPass Logo">
+    </a>
+  </div>
+
+  <h2>Cambiar Contraseña</h2>
+
+  <form onsubmit="return cambiarContraseña(event)">
+    <input type="password" id="password" placeholder="Nueva Contraseña" required>
+    <input type="password" id="confirmar" placeholder="Confirmar Contraseña" required>
+    <button type="submit">Guardar Contraseña</button>
+  </form>
+
+  <script>
+    function cambiarContraseña(event) {
+      event.preventDefault();
+      const pass = document.getElementById("password").value;
+      const confirm = document.getElementById("confirmar").value;
+
+      if (pass !== confirm) {
+        alert("Las contraseñas no coinciden.");
+        return false;
+      }
+
+      alert("Contraseña cambiada con éxito.");
+      window.location.href = "dashboardalumnos.html";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Crear Plan - BoxPass</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background:#111;
+      color:#fff;
+      text-align:center;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Logo centrado */
+    .logo-container {
+      margin: 20px 0 10px;
+    }
+    .logo-container img {
+      width: 250px; /* Ajusta según necesidad */
+      cursor: pointer;
+    }
+
+    .container {
+      width:85%;
+      margin:20px auto;
+      background:#222;
+      padding:20px;
+      border-radius:12px;
+    }
+
+    label {
+      display:block;
+      margin-top:10px;
+      text-align:left;
+    }
+
+    input, select {
+      width:100%;
+      padding:8px;
+      margin-top:4px;
+      border-radius:6px;
+      border:1px solid #ccc;
+    }
+
+    table {
+      width:100%;
+      border-collapse:collapse;
+      margin-top:15px;
+    }
+
+    th, td {
+      border:1px solid #444;
+      padding:8px;
+      text-align:center;
+    }
+
+    .btn {
+      display:inline-block;
+      margin:10px;
+      padding:10px 15px;
+      background:#e60000;
+      color:#fff;
+      border-radius:8px;
+      cursor:pointer;
+      text-decoration:none;
+      border:none;
+    }
+
+    .btn:hover {
+      background:#c00;
+    }
+  </style>
+</head>
+<body>
+  <!-- Logo clickeable -->
+  <div class="logo-container">
+    <a href="index.html">
+      <img src="imagenes/logo.svg" alt="Logo BoxPass">
+    </a>
+  </div>
+
+  <div class="container">
+    <h2>Crear Plan</h2>
+    <form id="crearPlanForm">
+      <label for="nombrePlan">Nombre del Plan</label>
+      <input type="text" id="nombrePlan" name="nombrePlan" required>
+
+      <label for="precioPlan">Precio del Plan (CLP)</label>
+      <input type="number" id="precioPlan" name="precioPlan" required>
+
+      <label for="clasesPlan">Cantidad de Clases Mensuales</label>
+      <input type="number" id="clasesPlan" name="clasesPlan" required>
+
+      <label for="clasesNoUsadas">Clases no utilizadas</label>
+      <select id="clasesNoUsadas" name="clasesNoUsadas" required>
+        <option value="pierden">Se pierden al finalizar el mes</option>
+        <option value="mantienen">Se mantienen para el siguiente periodo</option>
+      </select>
+
+      <h3>Secciones</h3>
+      <table id="tablaSecciones">
+        <thead>
+          <tr>
+            <th>Sección</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" name="seccion[]" placeholder="Infantil / Juvenil / Adulto" required></td>
+            <td><button type="button" class="btn" onclick="eliminarFila(this)">Eliminar</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button type="button" class="btn" onclick="agregarSeccion()">Agregar Sección</button>
+      <br>
+      <button type="submit" class="btn">Guardar Plan</button>
+    </form>
+  </div>
+
+  <script>
+    function agregarSeccion(){
+      const tbody = document.querySelector("#tablaSecciones tbody");
+      const fila = document.createElement("tr");
+      fila.innerHTML = `
+        <td><input type="text" name="seccion[]" placeholder="Infantil / Juvenil / Adulto" required></td>
+        <td><button type="button" class="btn" onclick="eliminarFila(this)">Eliminar</button></td>
+      `;
+      tbody.appendChild(fila);
+    }
+
+    function eliminarFila(btn){
+      const fila = btn.closest("tr");
+      fila.remove();
+    }
+
+    document.getElementById("crearPlanForm").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      const nombre = document.getElementById("nombrePlan").value;
+      const precio = document.getElementById("precioPlan").value;
+      const clases = document.getElementById("clasesPlan").value;
+      const clasesNoUsadas = document.getElementById("clasesNoUsadas").value;
+      const secciones = [...document.querySelectorAll("input[name='seccion[]']")].map(s => s.value);
+
+      // Simulación de guardado (en el futuro se conectará a base de datos o backend)
+      console.log({ nombre, precio, clases, clasesNoUsadas, secciones });
+
+      alert("✅ Plan creado con sus secciones.");
+      window.location.href = "dashboardempresas.html";
+    });
+  </script>
+</body>
+</html>

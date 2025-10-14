@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro - Alumnos</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: white;
+      text-align: center;
+    }
+
+    /* Logo centrado */
+    .logo {
+      margin: 30px auto 20px auto;
+    }
+
+    .logo img {
+      width: 140px;
+      height: auto;
+      cursor: pointer;
+    }
+
+    .form-container {
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0px 0px 10px rgba(255,0,0,0.5);
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 5px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      resize: none;
+      font-size: 12px;
+      background-color: #111;
+      color: #ccc;
+      overflow-y: auto;
+    }
+
+    .terms-container {
+      text-align: left;
+      font-size: 12px;
+      margin-bottom: 15px;
+    }
+
+    .terms-container label {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      cursor: pointer;
+    }
+/* Ajuste: centrar verticalmente la casilla con el texto */
+    .terms-container label {
+      display: flex;
+      align-items: center; /* <-- cambiado a center para alinear verticalmente */
+      gap: 8px;
+      cursor: pointer;
+      color: #fff;
+      user-select: none;
+    }
+
+    /* Opcional: agrandar un poco la casilla para mejor usabilidad */
+    .terms-container input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 0;
+      accent-color: #e60000;
+    }
+    button {
+      background-color: red;
+      color: white;
+      padding: 10px;
+      border: none;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: darkred;
+    }
+
+    .error {
+      color: #ff5555;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Logo -->
+  <div class="logo">
+    <a href="index.html">
+      <img src="imagenes/logo.svg" alt="Logo BoxPass">
+    </a>
+  </div>
+
+  <!-- Formulario de Registro -->
+  <div class="form-container">
+    <h2>Registro de Usuario</h2>
+    <form id="registroForm">
+      <input type="text" id="nombres" placeholder="Nombres" required>
+      <input type="text" id="apellidos" placeholder="Apellidos" required>
+      <input type="date" id="fecha" required>
+      <input type="text" id="direccion" placeholder="Dirección" required>
+      <input type="text" id="comuna" placeholder="Comuna" required>
+      <input type="text" id="ciudad" placeholder="Ciudad" required>
+      <input type="email" id="email" placeholder="Correo electrónico" required>
+      <input type="password" id="password" placeholder="Contraseña" required>
+      <input type="password" id="confirmar" placeholder="Ratificar Contraseña" required>
+
+      <!-- Términos y condiciones -->
+      <textarea readonly>
+Términos y Condiciones de Uso de Plataforma BoxPass SpA
+
+Última Actualización: 05 de Octubre de 2025
+
+Bienvenido a Boxpass (En adelante "La Plataforma").
+Al registrarse, acceder o realizar una compra en La Plataforma, usted (En adelante "El Usuario") declara haber leído, entendido y aceptado íntegramente los presentes Términos y Condiciones de Uso.
+
+1.-Objeto de La Plataforma:
+La Plataforma es un intermediario tecnológico de pago que permite a establecimientos deportivos (en adelante, “Empresas”) comercializar servicios, planes de entrenamiento, membresías, suscripciones y/o entradas a eventos deportivos a los Usuarios.
+La Plataforma no es el proveedor directo de dichos servicios, sino que actúa únicamente como canal de intermediación y recaudación de pagos, no siendo responsable de la prestación, mantención, modificación de los servicios ni responsable de la satisfacción del Usuario por los servicios contratados en La Plataforma.
+
+2.-Registro de Usuario
+Para acceder a los servicios, el Usuario debe crear una cuenta en la Plataforma y es responsable absoluto de proporcionar información veraz, completa y actualizada eximiendo desde ya a la Plataforma de cualquier responsabilidad asociada a la información proporcionada por el Usuario.
+El Usuario es responsable de mantener la confidencialidad de sus credenciales de acceso.
+El uso de la cuenta es personal es intransferible eximiendo a la Plataforma de  las condecuencias de todo tipo que puedan ocurrir al Usuario a causa del mal uso que este le haya dado a su cuenta en la Plataforma.
+
+3.-Relación comercializar
+La venta de servicios o productos realizados a través de la Plataforma constituye una relación comercial directa entre el Usuario y la Empresa.
+La Empresa es responsable de la emisión de emitir la boleta, factura y/o todo documento tributario que corresponde al Usuario por el valor total de la compra. La Plataforma se exime de toda responsabilidad presente o futura por la omisión, error o consecuencia ocurrida a raíz de los documentos tributarios que las Empresas debene emitir por la prestación de sus servicios.
+La Plataforma no es responsable de la calidad, cumplimiento, características de los servicios prestados por las Empresas, así como tampoco de la satisfacción de los Usuarios.
+
+4.-Precios y pagos
+Los precios exhibidos en la Plataforma son definidos exclusivamente por las Empresas.
+El pago se procesa a través de los medios electrónicos habilitados en la Plataforma.
+La Plataforma podrá retener una comisión de servicio acordada con las Empresas, la cual en ningún caso afecta el monto pagado por el Usuario.
+Una vez confirmado el pago, el Usuario recibirá un comprobante electrónico  y la Empresa recibirá una notificación de la venta.
+
+5.-Política de Cambios Devoluciones y Reembolsos
+Toda solicitud de cambio, devolución y/o reembolso debe gestionarse directamente la Empresa proveedora del servicio y responsable de la venta, será esta última la responsable de notificar el acuerdo a la Plataforma.
+La Plataforma podrá asistir la comunicación entre las partes si así fuese necesario , pero no se hace responsable de resolver conflictos derivados de los servicio o eventos prestados por la Empresa ni del cumplimiento de los acuerdos en los cuales la Plataforma haya actuado como intermediario o mediador.
+En caso de eventos cancelados, la política de devoluciones, será la que establezca la Empresa para dicho evento eximiendo a la Plataforma de las responsabilidades y/o acciones relacionadas a la cancelación de un evento.
+
+6.-Responsabilidades
+De las Empresas: proveer el servicio vendido en las condiciones ofertadas, emitir boleta/factura y responder a los usuarios de los reclamos.
+De la Plataforma: mantener operativo el sistema de pagos, custodiar los fondos hasta su transferencia a la Empresa y resguardar los datos de los Usuarios y Empresas.
+Del Usuario: entregar información verídica, utilizar la Plataforma de manera lícita, respetar las normas de uso de las Empresas.
+
+7.-Protección de Datos de la Plataforma
+La Plataforma recopila y trata datos personales de los Usuarios conforme a la Ley 19.628 sobre Protección de la Vida Privada y demás normativa aplicable.
+Los datos serán utilizados exclusivamente para la gestión de compra y comunicaciones relacionadas.
+El Usuario podrá ejercer sus derechos de acceso rectificación y eliminación mediante solicitud a boxpasscl@gmail.com.
+
+8.-Limitación de Responsabilidad
+La Plataforma no garantiza la disponibilidad permanente del servicio, pudiendo suspenderlo por mantención o fallas técnicas.
+La responsabilidad de la Plataforma se limita exclusivamente a la gestión de pagos.
+En ningún caso y por ningún motivo, la Plataforma será responsable de los la disponibilidad, cambio y/o los daños directos o indirectos derivados de la prestación de los servicios de las Empresas.
+
+9.-Modificaciones
+La plataforma podrá modificar los presentes Términos y Condiciones en cualquier momento. Los cambios serán informados mediante publicación en el sitio web y vía correo electrónico a los Usuarios y se entenderán automáticamente aceptados si el Usuario continúa utilizando la plataforma.
+
+10.-Legislación Aplicable y Jurisdicción
+Estos Términos y Condiciones se rigen por las leyes de la República de Chile. Para cualquier controversia, las partes fijan su domicilio en la ciudad de Santiago y se someten a los tribunales ordinarios de justicia.
+
+      </textarea>
+
+      <div class="terms-container">
+        <label>
+          <input type="checkbox" id="aceptaTerminos">
+          Acepto los Términos y Condiciones de BoxPass
+        </label>
+      </div>
+
+      <p class="error" id="errorMsg"></p>
+      <button type="submit">Registrar</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('registroForm');
+    const errorMsg = document.getElementById('errorMsg');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Obtener valores
+      const nombres = document.getElementById('nombres').value.trim();
+      const apellidos = document.getElementById('apellidos').value.trim();
+      const fecha = document.getElementById('fecha').value.trim();
+      const direccion = document.getElementById('direccion').value.trim();
+      const comuna = document.getElementById('comuna').value.trim();
+      const ciudad = document.getElementById('ciudad').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const confirmar = document.getElementById('confirmar').value.trim();
+      const aceptaTerminos = document.getElementById('aceptaTerminos').checked;
+
+      // Validar campos vacíos
+      if (!nombres || !apellidos || !fecha || !direccion || !comuna || !ciudad || !email || !password || !confirmar) {
+        errorMsg.textContent = "⚠️ Todos los campos son obligatorios.";
+        return;
+      }
+
+      // Validar contraseñas
+      if (password !== confirmar) {
+        errorMsg.textContent = "⚠️ Las contraseñas no coinciden.";
+        return;
+      }
+
+      // Validar términos y condiciones
+      if (!aceptaTerminos) {
+        errorMsg.textContent = "⚠️ Debes aceptar los Términos y Condiciones.";
+        return;
+      }
+
+      // Si todo está bien
+      window.location.href = "exitoregistro.html";
+    });
+  </script>
+
+</body>
+</html>
+

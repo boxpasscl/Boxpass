@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Administración de Alumnos - BoxPass</title>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      width: 220px;
+      background: #000;
+      padding: 20px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .sidebar .logo {
+      max-width: 160px;
+      margin-bottom: 30px;
+      cursor: pointer;
+    }
+    .sidebar nav {
+      width: 100%;
+    }
+    .sidebar nav a {
+      display: block;
+      padding: 12px;
+      margin: 6px 0;
+      text-decoration: none;
+      font-weight: bold;
+      color: #fff;
+      border-radius: 6px;
+      text-align: center;
+      transition: background 0.2s, color 0.2s;
+    }
+    .sidebar nav a:hover,
+    .sidebar nav a.active {
+      background: red;
+      color: #fff;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .main {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: red;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .toolbar input, .toolbar select {
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      margin: 4px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #333;
+      text-align: left;
+      font-size: 14px;
+    }
+    th {
+      background: #222;
+    }
+    tr:hover {
+      background: #1a1a1a;
+    }
+    .btn {
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      border: none;
+      margin: 2px;
+    }
+    .btn-reset { background: #007bff; color: #fff; }
+    .btn-block { background: #e67e22; color: #fff; }
+    .btn-delete { background: #e60000; color: #fff; }
+    .btn:hover { opacity: 0.85; }
+
+    /* Panel lateral para info */
+    .info-panel {
+      background: #222;
+      padding: 16px;
+      border-radius: 8px;
+    }
+    .info-panel h2 {
+      margin-top: 0;
+      color: #fff;
+    }
+    .info-panel ul {
+      list-style: none;
+      padding-left: 0;
+      font-size: 14px;
+    }
+    .info-panel li {
+      margin: 6px 0;
+      padding: 6px;
+      background: #333;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      .sidebar {
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+      }
+      .sidebar nav {
+        display: flex;
+        justify-content: center;
+      }
+      .sidebar nav a {
+        margin: 0 6px;
+        padding: 10px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <a href="dashboardadmin.html">
+      <img src="imagenes/logo.svg" alt="Logo BoxPass" class="logo">
+    </a>
+    <nav>
+      <a href="adminalumnos.html" class="active">Alumnos</a>
+      <a href="adminempresas.html">Empresas</a>
+      <a href="admineventos.html">Eventos</a>
+      <a href="adminconfig.html">Configuración</a>
+    </nav>
+  </aside>
+
+  <!-- Contenido principal -->
+  <main class="main">
+    <h1>Administración de Alumnos</h1>
+
+    <!-- Herramientas de búsqueda -->
+    <div class="toolbar">
+      <input type="text" id="searchInput" placeholder="Buscar por nombre o correo">
+      <select id="filterEstado">
+        <option value="">Todos los estados</option>
+        <option value="activo">Activo</option>
+        <option value="bloqueado">Bloqueado</option>
+        <option value="pendiente">Pendiente</option>
+      </select>
+    </div>
+
+    <!-- Tabla de alumnos -->
+    <table id="tablaAlumnos">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Estado</th>
+          <th>Último acceso</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- JS insertará filas -->
+      </tbody>
+    </table>
+
+    <!-- Panel de información adicional -->
+    <div class="info-panel" id="infoPanel" style="display:none;">
+      <h2>Información del alumno</h2>
+      <p><strong>Nombre:</strong> <span id="infoNombre"></span></p>
+      <p><strong>Correo:</strong> <span id="infoCorreo"></span></p>
+      <h3>Historial de eventos</h3>
+      <ul id="infoEventos"></ul>
+      <h3>Planes activos</h3>
+      <ul id="infoPlanes"></ul>
+    </div>
+  </main>
+
+  <script>
+    // Datos simulados
+    const alumnos = [
+      {
+        nombre: "Juan Pérez",
+        correo: "juan@correo.com",
+        estado: "activo",
+        acceso: "2025-10-01",
+        eventos: ["Concierto Rock", "Campeonato Kickboxing"],
+        planes: ["Boxeo - Gimnasio A"]
+      },
+      {
+        nombre: "María González",
+        correo: "maria@correo.com",
+        estado: "bloqueado",
+        acceso: "2025-09-28",
+        eventos: ["Clases Yoga"],
+        planes: []
+      },
+      {
+        nombre: "Pedro López",
+        correo: "pedro@correo.com",
+        estado: "pendiente",
+        acceso: "Nunca",
+        eventos: [],
+        planes: []
+      }
+    ];
+
+    const tbody = document.querySelector("#tablaAlumnos tbody");
+    const searchInput = document.getElementById("searchInput");
+    const filterEstado = document.getElementById("filterEstado");
+
+    function renderTabla() {
+      const search = searchInput.value.toLowerCase();
+      const estado = filterEstado.value;
+      tbody.innerHTML = "";
+
+      alumnos
+        .filter(a =>
+          (!estado || a.estado === estado) &&
+          (a.nombre.toLowerCase().includes(search) || a.correo.toLowerCase().includes(search))
+        )
+        .forEach((alumno, index) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${alumno.nombre}</td>
+            <td>${alumno.correo}</td>
+            <td>${alumno.estado}</td>
+            <td>${alumno.acceso}</td>
+            <td>
+              <button class="btn btn-reset" onclick="resetPass(${index})">Resetear</button>
+              <button class="btn btn-block" onclick="toggleEstado(${index})">${alumno.estado === 'bloqueado' ? 'Desbloquear' : 'Bloquear'}</button>
+              <button class="btn btn-delete" onclick="eliminarAlumno(${index})">Eliminar</button>
+              <button class="btn" onclick="mostrarInfo(${index})">Ver Info</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+    }
+
+    function resetPass(index) {
+      alert(`Se ha reseteado la contraseña de ${alumnos[index].nombre}`);
+    }
+
+    function toggleEstado(index) {
+      if (alumnos[index].estado === "bloqueado") {
+        alumnos[index].estado = "activo";
+      } else {
+        alumnos[index].estado = "bloqueado";
+      }
+      renderTabla();
+    }
+
+    function eliminarAlumno(index) {
+      if (confirm(`¿Seguro que deseas eliminar a ${alumnos[index].nombre}?`)) {
+        alumnos.splice(index, 1);
+        renderTabla();
+      }
+    }
+
+    function mostrarInfo(index) {
+      const alumno = alumnos[index];
+      document.getElementById("infoNombre").textContent = alumno.nombre;
+      document.getElementById("infoCorreo").textContent = alumno.correo;
+
+      const eventos = document.getElementById("infoEventos");
+      eventos.innerHTML = alumno.eventos.length ? alumno.eventos.map(e => `<li>${e}</li>`).join("") : "<li>No hay eventos</li>";
+
+      const planes = document.getElementById("infoPlanes");
+      planes.innerHTML = alumno.planes.length ? alumno.planes.map(p => `<li>${p}</li>`).join("") : "<li>No hay planes</li>";
+
+      document.getElementById("infoPanel").style.display = "block";
+    }
+
+    // Listeners
+    searchInput.addEventListener("input", renderTabla);
+    filterEstado.addEventListener("change", renderTabla);
+
+    // Inicial
+    renderTabla();
+  </script>
+</body>
+</html>
+

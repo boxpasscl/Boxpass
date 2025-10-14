@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil Alumno - BoxPass</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #000000;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    header {
+      margin-top: 15px;
+    }
+    .logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0 0;
+    }
+    .logo-wrap img {
+      width: 250px; /* ajusta tamaño del logo */
+      height: auto;
+      cursor: pointer;
+    }
+
+    h1 {
+      margin: 10px 0;
+      font-size: 1.6em;
+      color: #000;
+    }
+
+    .perfil-info {
+      border: 2px solid #e60000;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px auto;
+      width: 85%;
+      text-align: left;
+      font-size: 0.95em;
+    }
+
+    .perfil-top {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:10px;
+    }
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #ddd;
+      overflow: hidden;
+      position: relative;
+      flex: 0 0 64px;
+      cursor:pointer;
+      border: 1px solid #ccc;
+    }
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:none;
+    }
+    .avatar .avatar-hint{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:11px;
+      color:#696868;
+      text-align:center;
+      padding:6px;
+      line-height:1.1;
+    }
+    .avatar input[type="file"]{
+      display:none;
+    }
+
+    .perfil-info p {
+      margin: 3px 0;
+    }
+
+    .btn {
+      display: block;
+      width: 85%;
+      margin: 10px auto;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      color: #fff;
+      background-color: #e60000;
+      text-decoration:none;
+      text-align:center;
+    }
+
+    .tabs {
+      margin: 20px auto;
+      width: 90%;
+    }
+    .tabs-container {
+      display:flex;
+      justify-content: center;
+    }
+    .tabs button {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #e60000;
+      background-color: #fff;
+      color: #e60000;
+      cursor: pointer;
+      font-size: 0.9em;
+      border-radius:8px;
+    }
+    .tabs button.active {
+      background-color: #e60000;
+      color: #fff;
+    }
+
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      padding: 15px;
+      width: 85%;
+      margin: 15px auto;
+      text-align: left;
+      font-size: 0.9em;
+      background:#7b7b7b;
+    }
+    .card p { margin: 5px 0; }
+
+    .btn-asistencia {
+      width: 90%;
+      background-color: #e60000;
+      padding: 15px;
+      border-radius: 50px;
+      font-size: 1.1em;
+      color: #fff;
+      text-align: center;
+      cursor: pointer;
+      margin: 30px auto;
+    }
+
+    .buscador {
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      padding: 15px;
+      width: 85%;
+      margin: 20px auto;
+      text-align: left;
+      background: #000000;
+    }
+    .buscador label {
+      display:block;
+      margin-top:8px;
+      font-size:0.9em;
+      font-weight:bold;
+    }
+    .buscador input, 
+    .buscador select {
+      width:100%;
+      padding:8px;
+      margin-top:4px;
+      border:1px solid #ccc;
+      border-radius:6px;
+    }
+
+    .btn-renovar {
+      display:inline-block;
+      margin-top:10px;
+      padding:8px 12px;
+      background:#e60000;
+      color:#fff;
+      border-radius:6px;
+      font-size:0.85em;
+      text-decoration:none;
+      cursor:pointer;
+    }
+
+    /* QR modal */
+    #qr-reader {
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGO -->
+  <header>
+    <div class="logo-wrap">
+      <a href="index.html">
+        <img src="imagenes/logo.svg" alt="Logo BoxPass">
+      </a>
+    </div>
+  </header>
+
+  <h1>Mi Perfil</h1>
+
+  <!-- PERFIL -->
+  <div class="perfil-info">
+    <div class="perfil-top">
+      <label class="avatar" title="Sube tu foto">
+        <input type="file" id="fotoInput" accept="image/*">
+        <img id="fotoPreview" alt="Foto de perfil">
+        <span class="avatar-hint" id="avatarHint">Subir foto</span>
+      </label>
+      <div>
+        <p><strong>Nombre:</strong> XXXXX</p>
+        <p><strong>Mail:</strong> XXXXX</p>
+      </div>
+    </div>
+    <p><strong>Fecha de Nacimiento:</strong> XX/XX/XXXX</p>
+    <p><strong>Dirección:</strong> XXXXX</p>
+  </div>
+
+  <a class="btn" href="actualizardatos.html">Actualizar Datos</a>
+  <a class="btn" href="cambiarcontrasena.html">Cambiar Contraseña</a>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tabs-container">
+      <button class="active">Mis Planes</button>
+    </div>
+  </div>
+
+  <!-- SECCIÓN MIS PLANES -->
+  <div id="planesSection"></div>
+
+  <!-- Botón asistencia -->
+  <div class="btn-asistencia" onclick="registrarAsistencia()">
+    Registra tu asistencia
+  </div>
+
+  <!-- Contenedor QR -->
+  <div id="qr-reader" style="width:300px; display:none;"></div>
+
+  <!-- Librería QR -->
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+  <script>
+    // Foto perfil
+    const input = document.getElementById('fotoInput');
+    const preview = document.getElementById('fotoPreview');
+    const hint = document.getElementById('avatarHint');
+
+    input.addEventListener('change', function(){
+      const file = this.files && this.files[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+        hint.style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Datos de ejemplo
+    const planesAlumno = [
+      {
+        empresa: "HH Arias",
+        plan: "3 x semana",
+        seccion: "Adulto",
+        clasesMensuales: 12,
+        clasesDisponibles: 12,
+        costoMensual: "$30.000"
+      },
+      {
+        empresa: "Crossfit Center",
+        plan: "Ilimitado",
+        seccion: "Juvenil",
+        clasesMensuales: "∞",
+        clasesDisponibles: "∞",
+        costoMensual: "$45.000"
+      }
+    ];
+
+    const planesSection = document.getElementById("planesSection");
+
+    function renderPlanes(){
+      planesSection.innerHTML = "";
+      if(planesAlumno.length === 0){
+        renderBuscador();
+      } else {
+        planesAlumno.forEach(p => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <p><strong>Empresa:</strong> ${p.empresa}</p>
+            <p><strong>Plan:</strong> ${p.plan}</p>
+            <p><strong>Sección:</strong> ${p.seccion}</p>
+            <p><strong>Clases Mensuales:</strong> ${p.clasesMensuales}</p>
+            <p><strong>Clases Disponibles:</strong> ${p.clasesDisponibles}</p>
+            <p><strong>Costo Mensual:</strong> ${p.costoMensual}</p>
+            <a href="#" class="btn-renovar">Renovar Plan</a>
+          `;
+          planesSection.appendChild(card);
+        });
+
+        renderBuscador();
+      }
+    }
+
+    function renderBuscador(){
+      const buscador = document.createElement("div");
+      buscador.className = "buscador";
+      buscador.innerHTML = `
+        <h3>Busca tu Gimnasio</h3>
+        <label for="empresa">Empresa:</label>
+        <select id="empresa">
+          <option value="">Selecciona una empresa</option>
+          <option value="HH Arias">HH Arias</option>
+          <option value="Crossfit Center">Crossfit Center</option>
+          <option value="MMA Pro">MMA Pro</option>
+        </select>
+        <label for="plan">Plan:</label>
+        <select id="plan">
+          <option value="">Selecciona un plan</option>
+          <option value="3 x semana">3 x semana</option>
+          <option value="Ilimitado">Ilimitado</option>
+        </select>
+        <label for="seccion">Sección:</label>
+        <select id="seccion">
+          <option value="">Selecciona una sección</option>
+          <option value="Infantil">Infantil</option>
+          <option value="Juvenil">Juvenil</option>
+          <option value="Adulto">Adulto</option>
+        </select>
+        <label for="fecha">Fecha de inicio:</label>
+        <input type="date" id="fecha">
+        <a href="#" class="btn" onclick="inscribirAlumno()">Inscribir</a>
+      `;
+      planesSection.appendChild(buscador);
+    }
+
+    function inscribirAlumno(){
+      const empresa = document.getElementById("empresa").value;
+      const plan = document.getElementById("plan").value;
+      const seccion = document.getElementById("seccion").value;
+      const fecha = document.getElementById("fecha").value;
+
+      if(!empresa || !plan || !seccion || !fecha){
+        alert("⚠️ Debes completar todos los campos");
+        return;
+      }
+
+      planesAlumno.push({
+        empresa,
+        plan,
+        seccion,
+        clasesMensuales: plan === "Ilimitado" ? "∞" : 12,
+        clasesDisponibles: plan === "Ilimitado" ? "∞" : 12,
+        costoMensual: plan === "Ilimitado" ? "$45.000" : "$30.000"
+      });
+
+      renderPlanes();
+      alert(`✅ Inscrito en ${empresa}, Plan: ${plan}, Sección: ${seccion}`);
+    }
+
+    renderPlanes();
+
+    // === Registro de asistencia con QR ===
+    function registrarAsistencia(){
+      document.getElementById("qr-reader").style.display = "block";
+
+      const html5QrCode = new Html5Qrcode("qr-reader");
+      const qrConfig = { fps: 10, qrbox: 250 };
+
+      html5QrCode.start(
+        { facingMode: "environment" },
+        qrConfig,
+        qrCodeMessage => {
+          validarAsistencia(qrCodeMessage);
+          html5QrCode.stop().then(() => {
+            document.getElementById("qr-reader").style.display = "none";
+          });
+        },
+        errorMessage => {
+          // errores de escaneo (se puede ignorar)
+        }
+      );
+    }
+
+    function validarAsistencia(qrCodeMessage){
+      const plan = planesAlumno.find(p => p.empresa === qrCodeMessage);
+
+      if(plan){
+        if(plan.clasesDisponibles !== "∞" && plan.clasesDisponibles > 0){
+          plan.clasesDisponibles -= 1;
+          renderPlanes();
+          alert(`✅ Asistencia registrada en ${plan.empresa} - Sección ${plan.seccion}`);
+        } else if(plan.clasesDisponibles === "∞") {
+          alert(`✅ Asistencia registrada en ${plan.empresa} (Plan ilimitado) - Sección ${plan.seccion}`);
+        } else {
+          alert(`⚠️ No te quedan clases disponibles en ${plan.empresa} - Sección ${plan.seccion}`);
+        }
+      } else {
+        alert("❌ No tienes un plan asociado a este establecimiento");
+      }
+    }
+  </script>
+</body>
+</html>

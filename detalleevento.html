@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle del Evento - Boxpass</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-gray-100 min-h-screen" x-data="detalleEvento()">
+
+  <!-- Header -->
+  <header class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="eventoscomprar.html">
+        <img src="imagenes/logo.svg" alt="Boxpass" class="h-20">
+      </a>
+      <nav>
+        <a href="miperfilpersonaeventos.html" class="text-gray-700 hover:text-red-600 font-medium">Mi perfil</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="max-w-5xl mx-auto py-10 px-4" x-init="cargarDatos()">
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col md:flex-row">
+
+      <!-- Imagen -->
+      <div class="md:w-1/2">
+        <img :src="imagenEvento" alt="Imagen del evento" class="w-full h-full object-cover">
+      </div>
+
+      <!-- Detalles -->
+      <div class="md:w-1/2 p-6 flex flex-col justify-between">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-800 mb-2" x-text="evento"></h1>
+          <p class="text-gray-600 mb-1" x-text="fecha"></p>
+          <p class="text-gray-600 mb-1" x-text="lugar"></p>
+          <p class="text-red-600 font-bold text-lg mt-3">$<span x-text="precio"></span></p>
+
+          <hr class="my-4">
+
+          <!-- Sección de entradas -->
+          <div>
+            <label class="block font-semibold text-gray-700 mb-2">Selecciona tu tipo de entrada:</label>
+            <select x-model="seccionSeleccionada" class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500">
+              <option value="">Seleccione una opción</option>
+              <template x-for="seccion in secciones" :key="seccion.nombre">
+                <option :value="seccion.nombre" x-text="`${seccion.nombre} - $${seccion.precio}`"></option>
+              </template>
+            </select>
+          </div>
+
+          <!-- Mensaje de error -->
+          <p x-show="error" class="text-red-600 text-sm mt-2" x-text="error"></p>
+        </div>
+
+        <!-- Botón Comprar -->
+        <button 
+          @click="comprarEntrada"
+          class="mt-6 bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300">
+          Comprar Entrada
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function detalleEvento() {
+      return {
+        evento: '',
+        lugar: '',
+        fecha: '',
+        precio: '',
+        secciones: [],
+        seccionSeleccionada: '',
+        imagenEvento: 'imagenes/evento1.jpg',
+        error: '',
+
+        cargarDatos() {
+          // Obtener parámetros desde la URL
+          const params = new URLSearchParams(window.location.search);
+          this.evento = params.get('evento') || 'Evento sin nombre';
+          this.lugar = params.get('lugar') || 'Lugar no disponible';
+          this.fecha = params.get('fecha') || 'Fecha no especificada';
+          this.precio = params.get('precio') || '0';
+
+          // Cambiar imagen según evento
+          if (this.evento.includes('Crossfit')) {
+            this.imagenEvento = 'imagenes/evento2.jpg';
+          }
+
+          // Simulación de secciones disponibles (más adelante se cargará dinámicamente)
+          if (this.evento.includes('Boxeo')) {
+            this.secciones = [
+              { nombre: 'Ringside', precio: 15000 },
+              { nombre: 'General', precio: 10000 },
+              { nombre: 'Galería', precio: 7000 }
+            ];
+          } else if (this.evento.includes('Crossfit')) {
+            this.secciones = [
+              { nombre: 'VIP', precio: 12000 },
+              { nombre: 'General', precio: 8000 }
+            ];
+          } else {
+            this.secciones = [
+              { nombre: 'Entrada General', precio: this.precio }
+            ];
+          }
+        },
+
+        comprarEntrada() {
+          if (!this.seccionSeleccionada) {
+            this.error = 'Por favor selecciona una sección antes de continuar.';
+            return;
+          }
+          this.error = '';
+
+          // Redirigir a pasarela de pago (simulada por ahora)
+          alert(`Redirigiendo a la pasarela de pago para: ${this.seccionSeleccionada}`);
+          window.location.href = 'pagopendiente.html';
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>

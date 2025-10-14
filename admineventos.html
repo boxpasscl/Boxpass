@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administración de Eventos - Boxpass</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-gray-100 min-h-screen" x-data="adminEventos()">
+
+  <!-- Header -->
+  <header class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html">
+        <img src="imagenes/logo.svg" alt="Boxpass" class="h-20">
+      </a>
+      <nav class="space-x-6">
+        <a href="adminalumnos.html" class="text-gray-700 hover:text-red-600 font-medium">Alumnos</a>
+        <a href="adminempresas.html" class="text-gray-700 hover:text-red-600 font-medium">Empresas</a>
+        <a href="admineventos.html" class="text-red-600 font-bold border-b-2 border-red-600">Eventos</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <main class="max-w-6xl mx-auto py-10 px-4">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Revisión de Eventos</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Tarjeta evento -->
+      <template x-for="(evento, index) in eventos" :key="index">
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col">
+          <img :src="evento.imagen" alt="Flyer del evento" class="h-40 w-full object-cover">
+          <div class="p-4 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-lg font-bold text-gray-800" x-text="evento.nombre"></h3>
+              <p class="text-sm text-gray-600 mt-1" x-text="evento.fecha"></p>
+              <p class="text-sm text-gray-600" x-text="evento.lugar"></p>
+              <p class="text-sm text-gray-500 mt-1">Empresa: <span x-text="evento.empresa"></span></p>
+
+              <div class="mt-3">
+                <span class="text-xs font-semibold px-2 py-1 rounded"
+                      :class="{
+                        'bg-yellow-100 text-yellow-700': evento.estado === 'Pendiente',
+                        'bg-green-100 text-green-700': evento.estado === 'Aprobado',
+                        'bg-red-100 text-red-700': evento.estado === 'Rechazado'
+                      }"
+                      x-text="evento.estado"></span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex space-x-2">
+              <button 
+                @click="aprobarEvento(index)"
+                class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg font-semibold transition"
+                :disabled="evento.estado === 'Aprobado'">
+                Aprobar
+              </button>
+              <button 
+                @click="rechazarEvento(index)"
+                class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg font-semibold transition"
+                :disabled="evento.estado === 'Rechazado'">
+                Rechazar
+              </button>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <!-- Mensaje vacío -->
+    <div x-show="eventos.length === 0" class="text-center text-gray-600 mt-10">
+      No hay eventos pendientes para revisión.
+    </div>
+  </main>
+
+  <script>
+    function adminEventos() {
+      return {
+        eventos: [
+          {
+            nombre: 'Campeonato de Boxeo Nacional',
+            fecha: 'Sábado 15 de Octubre - 20:00 hrs',
+            lugar: 'Gimnasio Central, Santiago',
+            empresa: 'Fight Club Chile',
+            imagen: 'imagenes/evento1.jpg',
+            estado: 'Pendiente'
+          },
+          {
+            nombre: 'Torneo Crossfit Pro',
+            fecha: 'Domingo 22 de Octubre - 10:00 hrs',
+            lugar: 'Box Fitness Pro, Valparaíso',
+            empresa: 'Crossfit Team',
+            imagen: 'imagenes/evento2.jpg',
+            estado: 'Pendiente'
+          },
+          {
+            nombre: 'Exhibición MMA Internacional',
+            fecha: 'Viernes 28 de Octubre - 21:00 hrs',
+            lugar: 'Arena Sport, Concepción',
+            empresa: 'MMA FightPro',
+            imagen: 'imagenes/evento3.jpg',
+            estado: 'Pendiente'
+          }
+        ],
+
+        aprobarEvento(index) {
+          this.eventos[index].estado = 'Aprobado';
+          alert(`✅ El evento "${this.eventos[index].nombre}" ha sido aprobado.`);
+          // Aquí se podría enviar al backend o guardar en base de datos
+        },
+
+        rechazarEvento(index) {
+          this.eventos[index].estado = 'Rechazado';
+          alert(`❌ El evento "${this.eventos[index].nombre}" ha sido rechazado.`);
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>

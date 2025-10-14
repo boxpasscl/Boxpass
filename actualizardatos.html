@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actualizar Datos - BoxPass</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    /* ====== NUEVO LOGO ====== */
+    .logo-container {
+      margin-top: 20px;
+    }
+    .logo-container img {
+      max-width: 160px;
+      height: auto;
+      cursor: pointer;
+    }
+
+    h2 {
+      margin-top: 20px;
+    }
+
+    form {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    input {
+      width: 80%;
+      max-width: 400px;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 5px;
+    }
+    button {
+      background-color: red;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    @media (max-width:480px){
+      .logo-container img { max-width:250px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- LOGO NUEVO -->
+  <div class="logo-container">
+    <a href="index.html">
+      <img src="imagenes/logo.svg" alt="Logo BoxPass">
+    </a>
+  </div>
+
+  <h2>Actualizar Datos</h2>
+
+  <form onsubmit="return actualizarDatos(event)">
+    <input type="email" id="email" placeholder="Nuevo Correo" required>
+    <input type="text" id="direccion" placeholder="Nueva Dirección" required>
+    <input type="text" id="comuna" placeholder="Comuna" required>
+    <input type="text" id="ciudad" placeholder="Ciudad" required>
+    <button type="submit">Guardar Cambios</button>
+  </form>
+
+  <script>
+    function actualizarDatos(event) {
+      event.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const direccion = document.getElementById("direccion").value;
+      const comuna = document.getElementById("comuna").value;
+      const ciudad = document.getElementById("ciudad").value;
+
+      // Aquí en el futuro se guardarán los datos en la base de datos
+      console.log("Correo:", email);
+      console.log("Dirección:", direccion);
+      console.log("Comuna:", comuna);
+      console.log("Ciudad:", ciudad);
+
+      alert("Datos actualizados correctamente.");
+      window.location.href = "dashboardalumnos.html";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>BoxPass</title>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    /* Nuevo estilo para el logo */
+    .logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0 30px;
+    }
+
+    .logo {
+      max-width: 280px; /* ajusta el tamaño del logo */
+      height: auto;
+      cursor: pointer;
+    }
+
+    nav {
+      margin-top: 30px;
+    }
+    nav a {
+      display: block;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 20px;
+      margin: 12px 0;
+    }
+    nav a:hover {
+      color: red;
+    }
+
+    /* Enlace ingreso admin en esquina inferior derecha */
+    .admin-link {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      color: #fff;
+      background: transparent;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: color 0.15s ease, background 0.15s ease;
+      z-index: 9999;
+      font-size: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .admin-link:hover {
+      color: #fff;
+      background: rgba(230,0,0,0.08);
+      border-color: rgba(230,0,0,0.6);
+      color: red;
+    }
+
+    @media (max-width:480px) {
+      .logo {
+        max-width: 140px;
+      }
+      nav a {
+        font-size: 18px;
+      }
+      .admin-link {
+        right: 10px;
+        bottom: 10px;
+        font-size: 8px;
+        padding: 6px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Logo reemplazado -->
+  <div class="logo-wrap">
+    <a href="index.html">
+      <img src="imagenes/logo.svg" alt="Logo BoxPass" class="logo">
+    </a>
+  </div>
+
+  <p>Bienvenido a <span style="color:red">BoxPass</span>!</p>
+  <p style="margin-top:10px;font-size:18px;">
+    Somos tu partner en administración de recintos deportivos en la palma de tu mano
+  </p>
+
+  <nav>
+    <a href="quienessomos.html">Quienes Somos</a>
+    <a href="alumnos.html">Alumnos</a>
+    <a href="empresas.html">Empresas</a>
+    <a href="prontoeventos.html">Eventos</a>
+    <a href="contacto.html">Contacto</a>
+  </nav>
+
+  <!-- Enlace de ingreso admin (esquina inferior derecha) -->
+  <a href="Ingresoadmin.html" class="admin-link" aria-label="Ingreso Administrador">Ingreso Admin</a>
+</body>
+</html>

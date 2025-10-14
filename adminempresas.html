@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Administración - Empresas | BoxPass</title>
+  <style>
+    :root{
+      --bg:#111;
+      --panel:#0f0f10;
+      --accent:#e60000;
+      --muted:#999;
+      --card:#171717;
+      --white:#ffffff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--white);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.4;
+    }
+
+    /* Header / Logo */
+    header{
+      padding:22px 16px 8px;
+      text-align:center;
+      border-bottom:1px solid rgba(255,255,255,0.04);
+    }
+    .logo {
+      max-width:250px; /* igual tamaño que otras páginas */
+      height:auto;
+      display:inline-block;
+      cursor:pointer;
+    }
+    h1 {
+      margin:14px 0 6px;
+      font-size:20px;
+      color:var(--accent);
+    }
+    .subtitle { color:var(--muted); font-size:14px; margin-bottom:8px; }
+
+    /* Container */
+    .container {
+      max-width:1100px;
+      margin:18px auto;
+      padding:18px;
+    }
+
+    /* Controls */
+    .controls {
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+    .controls .left {
+      display:flex;
+      gap:12px;
+      flex:1 1 480px;
+    }
+    .controls input[type="search"], .controls select {
+      padding:10px 12px;
+      background:var(--card);
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--white);
+      border-radius:8px;
+      min-width:160px;
+    }
+    .controls button {
+      padding:10px 14px;
+      border-radius:8px;
+      border:none;
+      cursor:pointer;
+      font-weight:700;
+    }
+    .btn-primary { background:var(--accent); color:#fff; }
+    .btn-ghost { background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--white); }
+
+    /* Table wrapper responsive */
+    .table-wrap {
+      width:100%;
+      overflow-x:auto;
+      background:transparent;
+      border-radius:8px;
+      padding:6px;
+    }
+    table {
+      width:100%;
+      border-collapse:collapse;
+      min-width:800px;
+      background:var(--panel);
+      border-radius:6px;
+      overflow:hidden;
+    }
+    th, td {
+      padding:10px 12px;
+      text-align:left;
+      border-bottom:1px solid rgba(255,255,255,0.04);
+      font-size:14px;
+      color:var(--white);
+    }
+    th { background:#111; color:var(--muted); font-weight:700; font-size:13px; position:sticky; top:0; z-index:1; }
+    tbody tr:hover td { background: rgba(230,0,0,0.03); }
+
+    .tag {
+      display:inline-block;
+      padding:6px 8px;
+      border-radius:6px;
+      font-size:13px;
+      font-weight:700;
+    }
+    .tag.active { background: rgba(0,200,0,0.08); color:#8ef08e; border:1px solid rgba(0,200,0,0.08); }
+    .tag.blocked { background: rgba(200,0,0,0.06); color:#ff8b8b; border:1px solid rgba(200,0,0,0.06); }
+
+    /* Action buttons */
+    .actions { display:flex; gap:6px; flex-wrap:wrap; }
+    .actions button {
+      padding:6px 8px;
+      border-radius:6px;
+      border:none;
+      cursor:pointer;
+      font-size:13px;
+    }
+    .btn-reset { background:orange; color:#111; font-weight:700; }
+    .btn-block { background:#b91c1c; color:#fff; }
+    .btn-unblock { background:#0ea5a4; color:#fff; }
+    .btn-view { background:#16a34a; color:#fff; }
+    .btn-delete { background:#6b21a8; color:#fff; }
+
+    /* Empty state */
+    .empty { text-align:center; color:var(--muted); padding:20px; }
+
+    /* Modal */
+    .overlay {
+      position:fixed; inset:0; background:rgba(0,0,0,0.6); display:none; align-items:center; justify-content:center;
+      z-index:9999; padding:20px;
+    }
+    .overlay.active { display:flex; }
+    .modal {
+      width:100%;
+      max-width:700px;
+      background:var(--panel);
+      border-radius:10px;
+      padding:18px;
+      box-shadow:0 12px 40px rgba(0,0,0,0.7);
+      color:var(--white);
+    }
+    .modal h2 { margin:0 0 8px; color:var(--accent); }
+    .modal .row { display:flex; gap:12px; flex-wrap:wrap; margin-top:10px; }
+    .modal .col { flex:1 1 200px; }
+    .close { float:right; background:transparent; border:none; color:var(--muted); cursor:pointer; font-size:18px; }
+
+    /* Responsive tweaks */
+    @media (max-width:880px){
+      .controls { gap:8px; }
+      .controls .left { flex-basis:100%; }
+      th, td { font-size:13px; padding:8px; }
+      .logo { max-width:200px; }
+    }
+    @media (max-width:520px){
+      .logo { max-width:150px; }
+      .modal { padding:12px; }
+      table { min-width:700px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" aria-label="Ir a inicio">
+      <img src="imagenes/logo.svg" alt="Logo BoxPass" class="logo">
+    </a>
+    <h1>Panel de Administración — Empresas</h1>
+    <div class="subtitle">Gestión de empresas registradas en BoxPass</div>
+  </header>
+
+  <main class="container" role="main">
+    <!-- controles -->
+    <div class="controls" role="region" aria-label="Controles">
+      <div class="left">
+        <input id="searchInput" type="search" placeholder="Buscar por nombre, RUT o correo..." aria-label="Buscar empresas">
+        <select id="statusFilter" aria-label="Filtrar por estado">
+          <option value="">Todos los estados</option>
+          <option value="Activo">Activo</option>
+          <option value="Bloqueado">Bloqueado</option>
+        </select>
+      </div>
+
+      <div class="right">
+        <button id="btnResetFilters" class="btn-ghost">Restablecer filtros</button>
+      </div>
+    </div>
+
+    <!-- tabla -->
+    <div class="table-wrap" aria-live="polite">
+      <table aria-describedby="tablaEmpresasDescripcion">
+        <caption id="tablaEmpresasDescripcion" style="display:none">Listado de empresas registradas</caption>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>RUT</th>
+            <th>Contacto</th>
+            <th>Estado</th>
+            <th>Alumnos</th>
+            <th>Eventos</th>
+            <th style="min-width:200px">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="empresasTbody">
+          <!-- renderizado por JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <div id="emptyState" class="empty" style="display:none">No se encontraron empresas.</div>
+  </main>
+
+  <!-- Modal detalle -->
+  <div id="overlay" class="overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document">
+      <button class="close" aria-label="Cerrar" id="modalClose">&times;</button>
+      <h2 id="modalName">Detalle Empresa</h2>
+      <div class="row">
+        <div class="col"><strong>RUT:</strong> <div id="modalRUT"></div></div>
+        <div class="col"><strong>Correo:</strong> <div id="modalEmail"></div></div>
+      </div>
+      <div class="row">
+        <div class="col"><strong>Teléfono:</strong> <div id="modalPhone"></div></div>
+        <div class="col"><strong>Dirección:</strong> <div id="modalAddress"></div></div>
+      </div>
+      <div class="row">
+        <div class="col"><strong>Planes activos:</strong> <div id="modalPlans"></div></div>
+        <div class="col"><strong>Alumnos inscritos:</strong> <div id="modalStudents"></div></div>
+      </div>
+      <div class="row" style="margin-top:12px;">
+        <div class="col"><strong>Eventos organizados:</strong> <div id="modalEvents"></div></div>
+        <div class="col"><strong>Recaudación (estimada):</strong> <div id="modalRevenue"></div></div>
+      </div>
+      <div style="margin-top:14px;">
+        <textarea id="modalNotes" style="width:100%;min-height:80px;background:#0b0b0b;color:#fff;border:1px solid rgba(255,255,255,0.04);padding:10px;border-radius:6px;" placeholder="Observaciones internas (no públicas)"></textarea>
+      </div>
+      <div style="display:flex; gap:8px; margin-top:12px; justify-content:flex-end;">
+        <button id="modalSaveNotes" class="btn btn-primary">Guardar notas</button>
+        <button id="modalClose2" class="btn btn-ghost">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // datos de ejemplo (reemplazar por API)
+    let empresas = [
+      { id: 'e1', nombre:'BoxTraining', rut:'76.123.456-7', email:'contacto@boxtraining.cl', telefono:'+56 9 1234 5678', direccion:'Av. Siempre Viva 123, Santiago', estado:'Activo', alumnos:120, eventos:3, planes:'Mensual, Anual', revenue:4500000, notas:'' },
+      { id: 'e2', nombre:'PowerGym', rut:'77.987.654-3', email:'admin@powergym.cl', telefono:'+56 9 9876 5432', direccion:'Calle Falsa 456, Valparaíso', estado:'Bloqueado', alumnos:80, eventos:1, planes:'3 meses, Ilimitado', revenue:2100000, notas:'' },
+      { id: 'e3', nombre:'FitnessPro', rut:'78.222.333-1', email:'hola@fitnesspro.cl', telefono:'+56 9 5555 6666', direccion:'Av. Libertador 10, Viña', estado:'Activo', alumnos:200, eventos:2, plans:'Plan A', revenue:3200000, notas:'' }
+    ];
+
+    const tbody = document.getElementById('empresasTbody');
+    const searchInput = document.getElementById('searchInput');
+    const statusFilter = document.getElementById('statusFilter');
+    const emptyState = document.getElementById('emptyState');
+
+    function escapeHtml(str){
+      if(str === undefined || str === null) return '';
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    function renderTable(){
+      const q = (searchInput.value || '').toLowerCase().trim();
+      const status = statusFilter.value;
+      let filtered = empresas.filter(emp => {
+        if(status && emp.estado !== status) return false;
+        if(!q) return true;
+        return (emp.nombre && emp.nombre.toLowerCase().includes(q)) ||
+               (emp.rut && emp.rut.toLowerCase().includes(q)) ||
+               (emp.email && emp.email.toLowerCase().includes(q));
+      });
+
+      tbody.innerHTML = '';
+      if(filtered.length === 0){
+        emptyState.style.display = 'block';
+      } else {
+        emptyState.style.display = 'none';
+      }
+
+      filtered.forEach(emp => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${escapeHtml(emp.nombre)}</td>
+          <td>${escapeHtml(emp.rut)}</td>
+          <td><div style="max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHtml(emp.email)}</div></td>
+          <td>${emp.estado === 'Activo' ? '<span class="tag active">Activo</span>' : '<span class="tag blocked">Bloqueado</span>'}</td>
+          <td style="text-align:center">${emp.alumnos}</td>
+          <td style="text-align:center">${emp.eventos}</td>
+          <td>
+            <div class="actions" role="group" aria-label="Acciones empresa ${escapeHtml(emp.nombre)}">
+              <button class="btn-reset" data-id="${emp.id}" title="Resetear contraseña">Resetear</button>
+              ${emp.estado === 'Activo' ? `<button class="btn-block" data-id="${emp.id}" title="Bloquear">Bloquear</button>` : `<button class="btn-unblock" data-id="${emp.id}" title="Desbloquear">Desbloquear</button>`}
+              <button class="btn-view" data-id="${emp.id}" title="Ver detalles">Ver</button>
+              <button class="btn-delete" data-id="${emp.id}" title="Eliminar">Eliminar</button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // enlazar eventos (delegación no usada por simplicidad)
+      document.querySelectorAll('.btn-reset').forEach(b=> b.onclick = ()=> resetPassword(b.dataset.id));
+      document.querySelectorAll('.btn-block').forEach(b=> b.onclick = ()=> toggleBlock(b.dataset.id, true));
+      document.querySelectorAll('.btn-unblock').forEach(b=> b.onclick = ()=> toggleBlock(b.dataset.id, false));
+      document.querySelectorAll('.btn-view').forEach(b=> b.onclick = ()=> viewDetails(b.dataset.id));
+      document.querySelectorAll('.btn-delete').forEach(b=> b.onclick = ()=> deleteCompany(b.dataset.id));
+    }
+
+    // acciones
+    function resetPassword(id){
+      const e = empresas.find(x=>x.id===id);
+      if(!e) return alert('Empresa no encontrada');
+      if(!confirm(`¿Resetear contraseña para ${e.nombre} (${e.email})?\nSe enviará un enlace de reestablecimiento al correo.`)) return;
+      // simulación
+      alert(`Se ha enviado un enlace de reestablecimiento de contraseña a ${e.email}. (simulado)`);
+    }
+
+    function toggleBlock(id, toBlock){
+      const e = empresas.find(x=>x.id===id);
+      if(!e) return;
+      const action = toBlock ? 'bloquear' : 'desbloquear';
+      if(!confirm(`¿Deseas ${action} la empresa "${e.nombre}"?`)) return;
+      e.estado = toBlock ? 'Bloqueado' : 'Activo';
+      renderTable();
+    }
+
+    function deleteCompany(id){
+      const e = empresas.find(x=>x.id===id);
+      if(!e) return;
+      if(!confirm(`¿Eliminar permanentemente la empresa "${e.nombre}"? Esta acción no se puede deshacer.`)) return;
+      empresas = empresas.filter(x=>x.id!==id);
+      renderTable();
+    }
+
+    // modal de detalle
+    const overlay = document.getElementById('overlay');
+    const modalClose = document.getElementById('modalClose');
+    const modalClose2 = document.getElementById('modalClose2');
+    const modalSaveNotes = document.getElementById('modalSaveNotes');
+
+    function viewDetails(id){
+      const e = empresas.find(x=>x.id===id);
+      if(!e) return;
+      document.getElementById('modalName').textContent = e.nombre;
+      document.getElementById('modalRUT').textContent = e.rut;
+      document.getElementById('modalEmail').textContent = e.email;
+      document.getElementById('modalPhone').textContent = e.telefono || '-';
+      document.getElementById('modalAddress').textContent = e.direccion || '-';
+      document.getElementById('modalPlans').textContent = e.planes || '-';
+      document.getElementById('modalStudents').textContent = e.alumnos;
+      document.getElementById('modalEvents').textContent = e.eventos;
+      document.getElementById('modalRevenue').textContent = `$${Number(e.revenue || 0).toLocaleString('es-CL')}`;
+      document.getElementById('modalNotes').value = e.notas || '';
+      overlay.classList.add('active');
+      overlay.setAttribute('aria-hidden','false');
+      // guardar id en atributo para guardar notas
+      overlay.dataset.currentId = id;
+    }
+
+    function closeModal(){
+      overlay.classList.remove('active');
+      overlay.setAttribute('aria-hidden','true');
+      delete overlay.dataset.currentId;
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    modalClose2.addEventListener('click', closeModal);
+    overlay.addEventListener('click', function(e){
+      if(e.target === overlay) closeModal();
+    });
+
+    modalSaveNotes.addEventListener('click', function(){
+      const id = overlay.dataset.currentId;
+      if(!id) return;
+      const e = empresas.find(x=>x.id===id);
+      if(!e) return;
+      e.notas = document.getElementById('modalNotes').value;
+      alert('Notas guardadas (localmente, simulado).');
+      closeModal();
+    });
+
+    // filtros
+    searchInput.addEventListener('input', debounce(()=> renderTable(), 220));
+    statusFilter.addEventListener('change', ()=> renderTable());
+    document.getElementById('btnResetFilters').addEventListener('click', ()=>{
+      searchInput.value = '';
+      statusFilter.value = '';
+      renderTable();
+    });
+
+    function debounce(fn, wait){
+      let t;
+      return function(...args){
+        clearTimeout(t);
+        t = setTimeout(()=> fn.apply(this,args), wait);
+      };
+    }
+
+    // init
+    document.addEventListener('DOMContentLoaded', ()=> {
+      renderTable();
+    });
+
+  </script>
+</body>
+</html>
+

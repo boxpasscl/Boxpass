@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Contacto - BoxPass</title>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    /* Logo centrado */
+    .logo-container {
+      margin: 20px 0 30px;
+    }
+
+    .logo-container img {
+      width: 250px; /* Ajusta el tamaño a tu preferencia */
+      cursor: pointer; /* Hace notar que se puede hacer clic */
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 30px auto;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    textarea {
+      resize: none;
+      height: 120px;
+    }
+
+    button {
+      background: red;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background: #c00;
+    }
+
+    @media (max-width:480px) {
+      .logo-container img {
+        width: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Logo que redirige a la página principal -->
+  <div class="logo-container">
+    <a href="index.html">
+      <img src="imagenes/logo.svg" alt="Logo BoxPass"/>
+    </a>
+  </div>
+
+  <h2>Comunícate con nosotros</h2>
+
+  <form action="enviar_contacto.php" method="POST">
+    <label for="nombre">Nombre</label>
+    <input type="text" id="nombre" name="nombre" required />
+
+    <label for="apellido">Apellido</label>
+    <input type="text" id="apellido" name="apellido" required />
+
+    <label for="mail">Mail</label>
+    <input type="email" id="mail" name="mail" required />
+
+    <label for="motivo">Motivo de Contacto</label>
+    <select id="motivo" name="motivo" required>
+      <option value="">Seleccione una opción</option>
+      <option value="Quiero saber más de BoxPass">Quiero saber más de BoxPass</option>
+      <option value="Solicitud Reunión">Solicitud Reunión</option>
+      <option value="Reclamos">Reclamos</option>
+      <option value="Consultas">Consultas</option>
+    </select>
+
+    <label for="mensaje">Escríbenos</label>
+    <textarea id="mensaje" name="mensaje" maxlength="500" placeholder="Escribe tu mensaje aquí..." required></textarea>
+
+    <button type="submit">Enviar</button>
+  </form>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Eventos - BoxPass</title>
+  <style>
+    :root {
+      --black:#000;
+      --panel:#111;
+      --red:#e60000;
+      --text:#fff;
+    }
+    *{box-sizing:border-box;}
+    body {
+      margin:0;
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:var(--black);
+      font-family:Arial, sans-serif;
+      color:var(--text);
+    }
+    .card {
+      background:var(--panel);
+      padding:28px;
+      border-radius:12px;
+      width:100%;
+      max-width:400px;
+      text-align:center;
+      box-shadow:0 8px 25px rgba(0,0,0,0.6);
+    }
+    .logo {
+      margin-bottom:20px;
+    }
+    .logo img {
+      width:250px;
+      cursor:pointer;
+    }
+    h2 {
+      margin:0 0 20px;
+      font-size:22px;
+    }
+    form {
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    input {
+      padding:12px;
+      border-radius:8px;
+      border:1px solid #222;
+      background:#222;
+      color:var(--text);
+      font-size:14px;
+    }
+    input::placeholder { color:#aaa; }
+    input:focus { outline:none; border-color:var(--red); }
+    button {
+      background:var(--red);
+      color:#fff;
+      border:none;
+      padding:12px;
+      border-radius:8px;
+      font-size:16px;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .register {
+      margin-top:18px;
+      font-size:14px;
+    }
+    .register a {
+      color:var(--red);
+      font-weight:700;
+      text-decoration:none;
+    }
+    .register a:hover {
+      text-decoration:underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <!-- Logo -->
+    <div class="logo">
+      <a href="index.html">
+        <img src="imagenes/logo.svg" alt="BoxPass Logo">
+      </a>
+    </div>
+
+    <h2>Accede a Eventos</h2>
+
+    <form id="loginEventosForm">
+      <input type="email" id="correo" placeholder="Correo electrónico" required>
+      <input type="password" id="contrasena" placeholder="Contraseña" required>
+      <button type="submit">Ingresar</button>
+    </form>
+
+    <div class="register">
+      ¿No tienes cuenta? <a href="registrousuarioeventos.html">Regístrate aquí</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("loginEventosForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      const correo = document.getElementById("correo").value.trim();
+      const pass = document.getElementById("contrasena").value.trim();
+
+      if(!correo || !pass){
+        alert("Por favor ingresa tu correo y contraseña.");
+        return;
+      }
+
+      //⚠️ Lógica simulada por ahora:
+      // En el backend deberemos validar credenciales y rol.
+      // Para demo: si el correo contiene "empresa", lo enviamos a gestión.
+      if(correo.includes("empresa")){
+        window.location.href = "eventosgestiona.html";
+      } else {
+        window.location.href = "eventoscomprar.html";
+      }
+    });
+  </script>
+</body>
+</html>

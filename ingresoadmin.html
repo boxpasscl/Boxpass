@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ingreso Admin - BoxPass</title>
+  <style>
+    :root{
+      --black:#000;
+      --panel:#111;
+      --red:#e60000;
+      --text:#fff;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:var(--black);color:var(--text);font-family:Arial,Helvetica,sans-serif;}
+
+    /* Layout centrado */
+    .wrap{
+      min-height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+
+    .card{
+      width:100%;
+      max-width:420px;
+      background:var(--panel);
+      border-radius:12px;
+      padding:24px;
+      text-align:center;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
+
+    /* Logo */
+    .logo-wrap{
+      display:flex;
+      justify-content:center;
+      margin-bottom:18px;
+    }
+    .logo{
+      max-width:250px;
+      height:auto;
+      cursor:pointer;
+    }
+
+    /* Form */
+    h2{margin:8px 0 14px;font-size:20px}
+    form{ text-align:left; margin:0 auto; width:100%; max-width:360px; }
+    label{display:block;font-size:13px;color:var(--text);margin:8px 0 6px}
+    input[type="email"], input[type="password"]{
+      width:100%;
+      padding:11px 12px;
+      border-radius:8px;
+      border:1px solid #222;
+      background:#222;
+      color:var(--text);
+      font-size:14px;
+    }
+    input::placeholder{color:#aaa}
+    input:focus{outline:none;border-color:var(--red)}
+    .btn{
+      width:100%;
+      margin-top:16px;
+      padding:12px;
+      background:var(--red);
+      color:#fff;
+      border:none;
+      border-radius:10px;
+      font-size:16px;
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    .note{
+      margin-top:14px;
+      font-size:13px;
+      color:#ccc;
+      text-align:center;
+    }
+
+    /* responsive */
+    @media (max-width:480px){
+      .logo{ max-width:120px; }
+      .card{ padding:18px; border-radius:10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+
+      <!-- LOGO -->
+      <div class="logo-wrap">
+        <a href="index.html">
+          <img src="imagenes/logo.svg" alt="Logo BoxPass" class="logo">
+        </a>
+      </div>
+
+      <h2>Ingreso Administrador</h2>
+
+      <form id="adminForm" autocomplete="on" novalidate>
+        <label for="correo">Correo Administrador:</label>
+        <input id="correo" name="correo" type="email" placeholder="XXXXXX@XXXXXXX.com" required>
+
+        <label for="contrasena">Contraseña:</label>
+        <input id="contrasena" name="contrasena" type="password" placeholder="********" required>
+
+        <button class="btn" type="submit">Ingresar</button>
+      </form>
+
+      <div class="note">
+        La primera vez que ingreses deberás crear tu contraseña.
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('adminForm');
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      const email = document.getElementById('correo').value.trim();
+      const pass = document.getElementById('contrasena').value.trim();
+
+      if(!email || !pass){
+        alert('Completa todos los campos.');
+        return;
+      }
+
+      // único correo válido para admin
+      const adminEmail = "boxpasscl@gmail.com";
+      const savedPass = localStorage.getItem('adminPass');
+
+      if(email !== adminEmail){
+        alert('Correo no autorizado.');
+        return;
+      }
+
+      if(!savedPass){
+        // primera vez: guardar la contraseña
+        localStorage.setItem('adminPass', pass);
+        alert('Contraseña creada con éxito. Bienvenido administrador.');
+        window.location.href = "dashboardadmin.html";
+      } else {
+        // login normal
+        if(pass === savedPass){
+          window.location.href = "dashboardadmin.html";
+        } else {
+          alert('Contraseña incorrecta.');
+        }
+      }
+    });
+  </script>
+</body>
+</html>

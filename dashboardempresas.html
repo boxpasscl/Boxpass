@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Empresas - BoxPass</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: #fff;
+      text-align: center;
+    }
+    header {
+      margin-top: 15px;
+    }
+    .logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    .logo-wrap img {
+      width: 250px;
+      cursor: pointer;
+    }
+
+    /* Perfil empresa */
+    .perfil-info {
+      border: 2px solid #e60000;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 20px auto;
+      width: 85%;
+      background: #111;
+      text-align: left;
+      color: #fff;
+    }
+    .perfil-top { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+    .avatar { width: 64px; height: 64px; border-radius: 50%; background: #ddd; flex: 0 0 64px; }
+
+    /* Tabs */
+    .tabs { margin: 20px auto; width: 90%; }
+    .tabs-container { display:flex; justify-content: space-around; gap:6px; }
+    .tabs button {
+      flex: 1; padding: 10px; border: 1px solid #e60000;
+      background-color: #111; color: #e60000; cursor: pointer;
+      font-size: 0.9em; border-radius:8px;
+    }
+    .tabs button.active { background-color: #e60000; color: #fff; }
+
+    .section { display:none; margin: 15px auto; width: 90%; text-align: left; }
+    .section.active { display:block; }
+
+    /* Cards de planes */
+    .card {
+      position: relative;
+      border: 1px solid #e60000;
+      border-radius: 12px;
+      padding: 15px;
+      margin: 10px auto;
+      background: #111;
+      color: #fff;
+    }
+    .card p { margin: 5px 0; }
+
+    /* Botón eliminar plan */
+    .delete-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 25px;
+      height: 25px;
+      background-color: #e60000;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      line-height: 22px;
+      text-align: center;
+    }
+    .delete-btn:hover { background-color: darkred; }
+
+    .btn {
+      display:inline-block; padding:10px 15px; margin:8px 5px 0 0;
+      border:none; border-radius:8px; font-size:0.9em; cursor:pointer;
+      color:#fff; background-color:#e60000; text-decoration:none;
+    }
+
+    .formulario {
+      border: 1px solid #ccc; border-radius: 12px; padding: 15px;
+      margin: 15px auto; background: #fafafa; color:#000;
+    }
+    .formulario label { display:block; margin-top:10px; font-weight:bold; }
+    .formulario input, .formulario select {
+      width:100%; padding:8px; margin-top:5px; border:1px solid #ccc; border-radius:6px;
+    }
+
+    table {
+      width:100%; border-collapse: collapse; margin-top:15px; background:#111; color:#fff;
+    }
+    table, th, td { border:1px solid #e60000; }
+    th, td { padding:8px; text-align:left; }
+
+    .small-btn { padding:6px 10px; font-size:0.9em; border-radius:6px; background:#e60000; color:#fff; border:none; cursor:pointer; }
+
+    .summary { margin-top:12px; color:#fff; }
+
+    /* Bank account */
+    .bank-card {
+      background:#111;
+      border:1px solid #e60000;
+      border-radius:10px;
+      padding:12px;
+      color:#fff;
+      margin-bottom:12px;
+    }
+
+    .bank-form {
+      background:#fafafa;
+      color:#000;
+      padding:15px;
+      border-radius:8px;
+      margin-top:10px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      max-width:400px;
+    }
+    .bank-form button {
+      background:#e60000;
+      color:#fff;
+      padding:12px;
+      border:none;
+      border-radius:6px;
+      font-weight:bold;
+      cursor:pointer;
+    }
+    .bank-form button:hover { background:darkred; }
+
+    /* NUEVO: resumen financiero */
+    .resumen-cuentas {
+      background:#111;
+      border:2px solid #e60000;
+      border-radius:10px;
+      padding:15px;
+      color:#fff;
+      margin-top:20px;
+    }
+    .resumen-cuentas select {
+      width:100%;
+      padding:8px;
+      margin:8px 0;
+      border:none;
+      border-radius:6px;
+    }
+    .resumen-item { margin:6px 0; }
+
+    /* Selector año y mes lado a lado */
+    .selector-container {
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .selector-container select {
+      flex: 1;
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-wrap">
+      <a href="index.html"><img src="imagenes/logo.svg" alt="Logo BoxPass"></a>
+    </div>
+  </header>
+
+  <div class="perfil-info">
+    <div class="perfil-top">
+      <div class="avatar"></div>
+      <div>
+        <p><strong>Nombre Empresa:</strong> XXXXX</p>
+        <p><strong>Mail:</strong> empresa@mail.com</p>
+        <p><strong>Tipo:</strong> Gimnasio</p>
+        <p><strong>Dirección:</strong> Calle X #123</p>
+      </div>
+    </div>
+    <a class="btn" href="actualizardatosempresas.html">Actualizar Datos</a>
+    <a class="btn" href="cambiarcontrasenaempresas.html">Cambiar Contraseña</a>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tabs-container">
+      <button class="tab-btn active" data-tab="panel">Panel</button>
+      <button class="tab-btn" data-tab="planes">Mis Planes</button>
+      <button class="tab-btn" data-tab="cuentas">Mis Cuentas</button>
+    </div>
+  </div>
+
+  <!-- Secciones -->
+  <div id="panel" class="section active">
+    <h2>Panel</h2>
+    <p>Consulta de asistencias por fecha y sección</p>
+
+    <div class="formulario">
+      <label for="fechaPanel">Selecciona una fecha:</label>
+      <input type="date" id="fechaPanel">
+
+      <label for="seccionPanel">Selecciona una sección:</label>
+      <select id="seccionPanel"></select>
+
+      <button class="btn" onclick="consultarAsistencias()">Consultar</button>
+    </div>
+
+    <div id="asistenciasResultado"></div>
+  </div>
+
+  <div id="planes" class="section">
+    <h2>Mis Planes</h2>
+    <div id="planesList"></div>
+
+    <div class="formulario">
+      <h3>Crear Nuevo Plan</h3>
+      <label>Nombre del Plan:</label>
+      <input type="text" id="planNombre">
+      <label>Número de Clases Mensuales:</label>
+      <input type="number" id="planClases">
+      <label>Precio Mensual (CLP):</label>
+      <input type="number" id="planPrecio" min="0">
+
+      <label>¿Permite guardar clases no utilizadas?</label>
+      <select id="planGuardarClases">
+        <option value="si">Sí</option>
+        <option value="no">No</option>
+      </select>
+
+      <h4>Secciones</h4>
+      <div id="seccionesList">
+        <input type="text" placeholder="Nombre de la sección">
+      </div>
+      <button type="button" class="btn" onclick="agregarSeccion()">Agregar Sección</button>
+      <button type="button" class="btn" onclick="guardarPlan()">Guardar Plan</button>
+    </div>
+  </div>
+
+  <div id="cuentas" class="section">
+    <h2>Mis Cuentas</h2>
+    <div class="bank-card">
+      <strong>Cuenta Bancaria para recibir pagos</strong>
+      <div id="bankDisplay" style="margin-top:8px;"></div>
+      <div style="margin-top:10px;">
+        <button class="btn" id="bankToggleBtn" onclick="toggleBankForm()">Inscribir cuenta bancaria</button>
+      </div>
+      <div id="bankFormWrapper" style="display:none; margin-top:12px;">
+        <div class="bank-form">
+          <label>Nombre Completo</label>
+          <input type="text" id="bank_nombre">
+          <label>RUT</label>
+          <input type="text" id="bank_rut">
+          <label>Banco</label>
+          <select id="banco">
+            <option value="">Seleccione un banco</option>
+            <option>Banco de Chile</option>
+            <option>Banco BCI</option>
+            <option>Banco Santander Chile</option>
+            <option>Banco Estado</option>
+          </select>
+          <label>Tipo de Cuenta</label>
+          <select id="bank_tipo">
+            <option>Cuenta Corriente</option>
+            <option>Cuenta Vista</option>
+            <option>Cuenta RUT</option>
+          </select>
+          <label>Número de Cuenta</label>
+          <input type="text" id="bank_numero">
+          <label>Mail</label>
+          <input type="email" id="bank_mail">
+          <div>
+            <button class="btn" onclick="guardarCuentaBancaria()">Guardar Cuenta</button>
+            <button class="btn" style="background:#666;" onclick="cancelarBankForm()">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NUEVO RESUMEN FINANCIERO -->
+    <div class="resumen-cuentas">
+      <h3>Resumen Financiero</h3>
+
+      <div class="selector-container">
+        <select id="anioSelector" onchange="actualizarResumen()">
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+          <option value="2025" selected>2025</option>
+          <option value="2026">2026</option>
+        </select>
+
+        <select id="mesSelector" onchange="actualizarResumen()">
+          <option value="enero">Enero</option>
+          <option value="febrero">Febrero</option>
+          <option value="marzo">Marzo</option>
+          <option value="abril">Abril</option>
+          <option value="mayo">Mayo</option>
+          <option value="junio">Junio</option>
+          <option value="julio">Julio</option>
+          <option value="agosto">Agosto</option>
+          <option value="septiembre">Septiembre</option>
+          <option value="octubre" selected>Octubre</option>
+          <option value="noviembre">Noviembre</option>
+          <option value="diciembre">Diciembre</option>
+        </select>
+      </div>
+
+      <div id="resumenDatos">
+        <p class="resumen-item"><strong>Alumnos inscritos:</strong> 0</p>
+        <p class="resumen-item"><strong>Monto recaudado:</strong> $0</p>
+        <p class="resumen-item"><strong>Comisión BoxPass (5%):</strong> $0</p>
+        <p class="resumen-item"><strong>Monto final:</strong> $0</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const planesEmpresa = [
+      { nombre: "Plan Básico", clases: 8, precio: 30000, guardarClases: "no", secciones: ["Adultos", "Infantil"] },
+      { nombre: "Plan Premium", clases: 12, precio: 45000, guardarClases: "si", secciones: ["Adultos", "Juvenil"] }
+    ];
+
+    const tabs = document.querySelectorAll(".tab-btn");
+    const sections = document.querySelectorAll(".section");
+
+    tabs.forEach(btn => {
+      btn.addEventListener("click", () => {
+        tabs.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        sections.forEach(s => s.classList.remove("active"));
+        document.getElementById(btn.dataset.tab).classList.add("active");
+      });
+    });
+
+    function renderPlanes() {
+      const container = document.getElementById("planesList");
+      container.innerHTML = "";
+      if (planesEmpresa.length === 0) {
+        container.innerHTML = "<p>No tienes planes creados aún.</p>";
+        return;
+      }
+      planesEmpresa.forEach((plan, index) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <button class="delete-btn" onclick="eliminarPlan(${index})">×</button>
+          <p><strong>Plan:</strong> ${plan.nombre}</p>
+          <p><strong>Clases Mensuales:</strong> ${plan.clases}</p>
+          <p><strong>Precio:</strong> $${plan.precio.toLocaleString('es-CL')}</p>
+          <p><strong>Permite guardar clases:</strong> ${plan.guardarClases === "si" ? "Sí" : "No"}</p>
+          <p><strong>Secciones:</strong> ${plan.secciones.join(", ")}</p>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function eliminarPlan(index) {
+      if (confirm("¿Deseas eliminar este plan?")) {
+        planesEmpresa.splice(index, 1);
+        renderPlanes();
+      }
+    }
+
+    function agregarSeccion() {
+      const seccionesList = document.getElementById("seccionesList");
+      const input = document.createElement("input");
+      input.type = "text";
+      input.placeholder = "Nombre de la sección";
+      seccionesList.appendChild(input);
+    }
+
+    function guardarPlan() {
+      const nombre = document.getElementById("planNombre").value.trim();
+      const clases = document.getElementById("planClases").value;
+      const precio = parseFloat(document.getElementById("planPrecio").value);
+      const guardarClases = document.getElementById("planGuardarClases").value;
+      const seccionesInputs = document.querySelectorAll("#seccionesList input");
+      const secciones = Array.from(seccionesInputs).map(i => i.value.trim()).filter(v => v !== "");
+      if (!nombre || !clases || isNaN(precio) || secciones.length === 0) {
+        alert("Completa todos los campos y al menos una sección.");
+        return;
+      }
+      planesEmpresa.push({ nombre, clases: Number(clases), precio, guardarClases, secciones });
+      renderPlanes();
+      document.getElementById("planNombre").value = "";
+      document.getElementById("planClases").value = "";
+      document.getElementById("planPrecio").value = "";
+      document.getElementById("planGuardarClases").value = "si";
+      document.getElementById("seccionesList").innerHTML = '<input type="text" placeholder="Nombre de la sección">';
+    }
+
+    /* === ACTUALIZADO: RESUMEN FINANCIERO CON AÑO === */
+    function actualizarResumen() {
+      const alumnos = Math.floor(Math.random() * 30) + 10; // Simulación
+      const total = planesEmpresa.reduce((sum, p) => sum + p.precio, 0) * alumnos;
+      const comision = total * 0.05;
+      const final = total - comision;
+      const mes = document.getElementById("mesSelector").value;
+      const anio = document.getElementById("anioSelector").value;
+
+      document.getElementById("resumenDatos").innerHTML = `
+        <p class="resumen-item"><strong>Periodo:</strong> ${mes.charAt(0).toUpperCase() + mes.slice(1)} ${anio}</p>
+        <p class="resumen-item"><strong>Alumnos inscritos:</strong> ${alumnos}</p>
+        <p class="resumen-item"><strong>Monto recaudado:</strong> $${total.toLocaleString('es-CL')}</p>
+        <p class="resumen-item"><strong>Comisión BoxPass (5%):</strong> $${comision.toLocaleString('es-CL')}</p>
+        <p class="resumen-item"><strong>Monto final:</strong> $${final.toLocaleString('es-CL')}</p>
+      `;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderPlanes();
+      actualizarResumen();
+    });
+  </script>
+
+</body>
+</html>

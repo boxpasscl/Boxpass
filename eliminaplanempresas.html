@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Eliminar Plan - BoxPass</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#111; color:#fff; text-align:center; margin:0; padding:0; }
+    header { margin:20px 0; }
+    .logo-wrap { display:flex; justify-content:center; }
+    .logo-wrap img { width:250px; height:auto; cursor:pointer; }
+
+    .container { width:85%; margin:20px auto; background:#222; padding:20px; border-radius:12px; }
+    label { display:block; margin-top:10px; text-align:left; }
+    select { width:100%; padding:8px; margin-top:4px; border-radius:6px; border:1px solid #ccc; }
+    table { width:100%; border-collapse:collapse; margin-top:15px; }
+    th, td { border:1px solid #444; padding:8px; text-align:center; }
+    .btn { display:inline-block; margin:10px; padding:10px 15px; background:#e60000; color:#fff; border-radius:8px; cursor:pointer; text-decoration:none; }
+  </style>
+</head>
+<body>
+
+  <!-- LOGO -->
+  <header>
+    <div class="logo-wrap">
+      <a href="index.html">
+        <img src="imagenes/logo.svg" alt="Logo BoxPass">
+      </a>
+    </div>
+  </header>
+
+  <div class="container">
+    <h2>Eliminar Plan</h2>
+    <form id="eliminarPlanForm">
+      <label for="plan">Selecciona un Plan</label>
+      <select id="plan" name="plan" required onchange="mostrarSecciones()">
+        <option value="">-- Selecciona un plan --</option>
+        <option value="Plan 3x Semana">Plan 3x Semana</option>
+        <option value="Plan Ilimitado">Plan Ilimitado</option>
+      </select>
+
+      <div id="seccionesContainer" style="display:none;">
+        <h3>Secciones del Plan</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Eliminar</th>
+              <th>Sección</th>
+              <th>Precio</th>
+              <th>Clases Mensuales</th>
+            </tr>
+          </thead>
+          <tbody id="tablaEliminarSecciones"></tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:15px;">
+        <label><input type="checkbox" id="eliminarCompleto"> Eliminar plan completo</label>
+      </div>
+
+      <button type="submit" class="btn">Eliminar</button>
+    </form>
+  </div>
+
+  <script>
+    const planesConSecciones = {
+      "Plan 3x Semana": [
+        { seccion: "Juvenil", precio: 30000, clases: 12 },
+        { seccion: "Adulto", precio: 35000, clases: 12 }
+      ],
+      "Plan Ilimitado": [
+        { seccion: "Adulto", precio: 45000, clases: "∞" }
+      ]
+    };
+
+    function mostrarSecciones(){
+      const planSel = document.getElementById("plan").value;
+      const container = document.getElementById("seccionesContainer");
+      const tbody = document.getElementById("tablaEliminarSecciones");
+      tbody.innerHTML = "";
+
+      if(planSel && planesConSecciones[planSel]){
+        container.style.display = "block";
+        planesConSecciones[planSel].forEach((s, idx) => {
+          const fila = document.createElement("tr");
+          fila.innerHTML = `
+            <td><input type="checkbox" name="seccionEliminar" value="${idx}"></td>
+            <td>${s.seccion}</td>
+            <td>${s.precio}</td>
+            <td>${s.clases}</td>
+          `;
+          tbody.appendChild(fila);
+        });
+      } else {
+        container.style.display = "none";
+      }
+    }
+
+    document.getElementById("eliminarPlanForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      if(document.getElementById("eliminarCompleto").checked){
+        alert("⚠️ Plan completo eliminado.");
+      } else {
+        const seleccionadas = document.querySelectorAll("input[name='seccionEliminar']:checked");
+        if(seleccionadas.length === 0){
+          alert("Debes seleccionar al menos una sección o marcar 'Eliminar plan completo'.");
+          return;
+        }
+        alert(`✅ Se eliminaron ${seleccionadas.length} sección(es) del plan.`);
+      }
+      window.location.href = "dashboardempresas.html";
+    });
+  </script>
+</body>
+</html>
